@@ -16,19 +16,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE blood_requests (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    posted_by_user_id INT NOT NULL,
-    blood_group ENUM('A+','A-','B+','B-','AB+','AB-','O+','O-') NOT NULL,
-    location VARCHAR(100) NOT NULL,
-    needed_date DATE NOT NULL,
-    units_needed INT DEFAULT 1,
-    contact_phone VARCHAR(20) NOT NULL,
-    details TEXT,
-    status ENUM('Pending','Accepted','Completed','Cancelled') DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (posted_by_user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+
 
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,3 +30,21 @@ CREATE TABLE notifications (
 INSERT INTO users (name, phone, email, password, role, blood_group, location, availability_status, is_verified, is_active)
 VALUES
 ('System Admin', '01700000000', 'admin@blood.com', '$2y$10$Q0r4Y9w8aV0oYVvD3R4gxOtSQfVqWwzYF5gFNmAqgD5w7G3M3yD3K', 'admin', NULL, 'Dhaka', 'Available', 1, 1);
+
+CREATE TABLE IF NOT EXISTS blood_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    requester_role ENUM('requester', 'hospital') NOT NULL,
+    patient_name VARCHAR(100) NOT NULL,
+    blood_group VARCHAR(5) NOT NULL,
+    units_needed INT NOT NULL,
+    needed_date DATE NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    hospital_name VARCHAR(150) DEFAULT NULL,
+    contact_phone VARCHAR(20) NOT NULL,
+    details TEXT,
+    status ENUM('open', 'fulfilled', 'cancelled') DEFAULT 'open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
