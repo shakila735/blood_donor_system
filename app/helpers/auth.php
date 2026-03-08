@@ -45,6 +45,10 @@ function current_user_role() {
     return $_SESSION['user_role'] ?? null;
 }
 
+function current_user_id() {
+    return $_SESSION['user_id'] ?? null;
+}
+
 function require_login() {
     set_no_cache_headers();
 

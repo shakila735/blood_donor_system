@@ -11,7 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $name = clean_input($_POST['name'] ?? '');
 $phone = clean_input($_POST['phone'] ?? '');
-$email = clean_input($_POST['email'] ?? '');
+$email = trim($_POST['email']);
+
+if ($email === '') {
+    $email = NULL;
+}
 $password = $_POST['password'] ?? '';
 $role = clean_input($_POST['role'] ?? '');
 $blood_group = clean_input($_POST['blood_group'] ?? '');

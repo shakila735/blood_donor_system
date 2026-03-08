@@ -20,6 +20,7 @@ require_role(['hospital']);
     <h1>Hospital Dashboard</h1>
     <p>Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</p>
     <p>You can search donors and post blood requests here.</p>
+    <a href="create_blood_request.php" class="btn btn-danger">Post Blood Request</a>
     <a href="../logout.php" class="btn btn-danger">Logout</a>
 </body>
 </html>

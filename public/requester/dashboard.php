@@ -22,6 +22,7 @@ require_role(['requester']);
         <h1 class="mb-3">Requester Dashboard</h1>
         <p>Welcome, <?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?>!</p>
         <p>You can post blood requests and search donors here.</p>
+        <a href="create_blood_request.php" class="btn btn-danger">Post Blood Request</a>
         <a href="../logout.php" class="btn btn-danger">Logout</a>
     </div>
 </body>
