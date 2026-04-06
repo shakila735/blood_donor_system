@@ -25,10 +25,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `blood_group` varchar(5) NULL,
   `location` varchar(255) NOT NULL,
   `is_active` tinyint(1) DEFAULT 1,
+  `availability_status` enum('Available','Unavailable') DEFAULT 'Available',
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `blood_requests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `blood_group` varchar(5) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `needed_date` date NOT NULL,
+  `contact_info` varchar(100) NOT NULL,
+  `note` text NULL,
+  `status` enum('Pending','Accepted','Completed','Cancelled') DEFAULT 'Pending',
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Password for admin is 'adminpassword'
