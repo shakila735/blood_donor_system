@@ -13,6 +13,13 @@
         $depth = substr_count(str_replace("\\", "/", $_SERVER['PHP_SELF']), "/") - 2; // adjust based on folder depth
         // A simpler approach for XAMPP:
         $base_url = '/blood_donor_system/';
+        
+        // Fetch unread notification count if user is logged in
+        $unread_count = 0;
+        if(isset($_SESSION['user_id']) && isset($pdo)) {
+            require_once __DIR__ . '/notification_helper.php';
+            $unread_count = get_unread_notification_count($pdo, $_SESSION['user_id']);
+        }
     ?>
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/style.css">
 </head>
@@ -29,6 +36,16 @@
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $base_url; ?>dashboard.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="<?php echo $base_url; ?>notifications.php">
+                            <i class="fa-solid fa-bell"></i>
+                            <?php if($unread_count > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" style="font-size: 0.65em;">
+                                    <?php echo $unread_count; ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $base_url; ?>profile.php">Profile</a>
