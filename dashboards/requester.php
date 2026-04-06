@@ -21,12 +21,32 @@ include '../includes/header.php';
                 <hr>
                 <div class="row mt-4">
                     <div class="col-md-4 mb-3">
-                        <div class="card bg-light border-0">
+                        <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center py-4">
                                 <i class="fa-solid fa-magnifying-glass fa-3x text-danger mb-3"></i>
                                 <h5>Find Donors</h5>
                                 <p class="text-muted small">Search for available blood donors near you.</p>
-                                <button class="btn btn-outline-danger btn-sm" disabled>Coming Soon</button>
+                                <a href="../donor_search.php" class="btn btn-outline-danger btn-sm">Search Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <i class="fa-solid fa-plus-circle fa-3x text-danger mb-3"></i>
+                                <h5>Post Blood Request</h5>
+                                <p class="text-muted small">Create a new blood request.</p>
+                                <a href="../blood_request_create.php" class="btn btn-outline-danger btn-sm">Post Request</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <i class="fa-solid fa-clock-rotate-left fa-3x text-danger mb-3"></i>
+                                <h5>My Requests</h5>
+                                <p class="text-muted small">View and manage your requests.</p>
+                                <a href="../blood_request_history.php" class="btn btn-outline-danger btn-sm">View History</a>
                             </div>
                         </div>
                     </div>

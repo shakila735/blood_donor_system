@@ -1,6 +1,34 @@
 <?php
+require_once '../config/database.php';
 require_once '../auth/guard.php';
+
 require_role('donor');
+
+$user_id = $_SESSION['user_id'];
+$success = "";
+$error = "";
+
+// Handle Availability Update
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['availability_status'])) {
+    $new_status = $_POST['availability_status'];
+    if (in_array($new_status, ['Available', 'Unavailable'])) {
+        $sql = "UPDATE users SET availability_status = ? WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        try {
+            $stmt->execute([$new_status, $user_id]);
+            $success = "Availability status updated successfully.";
+        } catch (PDOException $e) {
+            $error = "Failed to update availability status.";
+        }
+    }
+}
+
+// Fetch current user details including availability
+$stmt = $pdo->prepare("SELECT availability_status FROM users WHERE id = ?");
+$stmt->execute([$user_id]);
+$user_data = $stmt->fetch();
+$current_status = $user_data['availability_status'] ?? 'Available';
+
 include '../includes/header.php';
 ?>
 
@@ -14,6 +42,13 @@ include '../includes/header.php';
             </div>
         </div>
         
+        <?php if ($success): ?>
+            <div class="alert alert-success"><?php echo $success; ?></div>
+        <?php endif; ?>
+        <?php if ($error): ?>
+            <div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php endif; ?>
+
         <div class="card shadow-sm border-0 border-top border-danger border-3">
             <div class="card-body">
                 <h5 class="card-title">Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h5>
@@ -21,18 +56,42 @@ include '../includes/header.php';
                 <hr>
                 <div class="row mt-4">
                     <div class="col-md-4 mb-3">
-                        <div class="card bg-light border-0">
-                            <div class="card-body text-center py-4">
-                                <i class="fa-solid fa-clock fa-3x text-danger mb-3"></i>
-                                <h5>My Availability</h5>
-                                <p class="text-muted small">Update your status to start or stop receiving requests.</p>
-                                <button class="btn btn-outline-danger btn-sm" disabled>Coming Soon</button>
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body py-4">
+                                <div class="text-center mb-3">
+                                    <i class="fa-solid fa-clock fa-3x text-danger mb-3"></i>
+                                    <h5>My Availability</h5>
+                                    <p class="text-muted small">Update your status to start or stop appearing in searches.</p>
+                                </div>
+                                
+                                <form method="POST" action="" class="bg-white p-3 rounded shadow-sm border">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <strong>Current Status:</strong><br>
+                                            <?php if ($current_status == 'Available'): ?>
+                                                <span class="text-success"><i class="fa-solid fa-check-circle"></i> Available</span>
+                                            <?php else: ?>
+                                                <span class="text-secondary"><i class="fa-solid fa-clock"></i> Unavailable</span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div>
+                                            <select name="availability_status" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
+                                                <option value="Available" <?php echo ($current_status == 'Available') ? 'selected' : ''; ?>>Available</option>
+                                                <option value="Unavailable" <?php echo ($current_status == 'Unavailable') ? 'selected' : ''; ?>>Unavailable</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <noscript>
+                                        <button type="submit" class="btn btn-sm btn-danger mt-3 w-100">Save</button>
+                                    </noscript>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-md-4 mb-3">
-                        <div class="card bg-light border-0">
+                        <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center py-4">
                                 <div class="position-relative d-inline-block">
                                     <i class="fa-solid fa-bell fa-3x text-danger mb-3"></i>
