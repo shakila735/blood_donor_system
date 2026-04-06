@@ -30,6 +30,29 @@ include '../includes/header.php';
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light border-0">
+                            <div class="card-body text-center py-4">
+                                <div class="position-relative d-inline-block">
+                                    <i class="fa-solid fa-bell fa-3x text-danger mb-3"></i>
+                                    <?php
+                                    // Make sure we have the pdo and helper available
+                                    if(isset($pdo)) {
+                                        require_once '../includes/notification_helper.php';
+                                        $dash_unread = get_unread_notification_count($pdo, $_SESSION['user_id']);
+                                        if($dash_unread > 0) {
+                                            echo '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">' . $dash_unread . '</span>';
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                                <h5>Notifications</h5>
+                                <p class="text-muted small">View recent blood requests matching your profile.</p>
+                                <a href="../notifications.php" class="btn btn-danger btn-sm">View Notifications</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
