@@ -42,8 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id']) && isset
     }
 }
 
-// Fetch all requests for this user
-$sql = "SELECT * FROM blood_requests WHERE user_id = ? ORDER BY created_at DESC";
+// Fetch all requests for this user with donor info
+$sql = "SELECT br.*, u.name as donor_name, u.phone as donor_phone 
+        FROM blood_requests br 
+        LEFT JOIN users u ON br.donor_id = u.id 
+        WHERE br.user_id = ? 
+        ORDER BY br.created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$user_id]);
 $requests = $stmt->fetchAll();
@@ -78,8 +82,9 @@ include 'includes/header.php';
                                     <th>Blood Group</th>
                                     <th>Location</th>
                                     <th>Needed By</th>
-                                    <th>Contact</th>
+                                    <th>Contact Info</th>
                                     <th>Status</th>
+                                    <th>Donor</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -100,6 +105,14 @@ include 'includes/header.php';
                                             if ($req['status'] == 'Cancelled') $badgeClass = 'bg-danger';
                                             ?>
                                             <span class="badge <?php echo $badgeClass; ?>"><?php echo $req['status']; ?></span>
+                                        </td>
+                                        <td>
+                                            <?php if ($req['donor_id']): ?>
+                                                <strong><?php echo htmlspecialchars($req['donor_name']); ?></strong><br>
+                                                <span class="small text-muted"><?php echo htmlspecialchars($req['donor_phone']); ?></span>
+                                            <?php else: ?>
+                                                <span class="text-muted small">Not accepted yet</span>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php if (in_array($req['status'], ['Pending', 'Accepted'])): ?>
