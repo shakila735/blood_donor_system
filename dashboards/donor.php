@@ -112,6 +112,17 @@ include '../includes/header.php';
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <i class="fa-solid fa-list-check fa-3x text-danger mb-3"></i>
+                                <h5>Blood Request Feed</h5>
+                                <p class="text-muted small">View all active blood requests and accept one to help.</p>
+                                <a href="../blood_requests_feed.php" class="btn btn-danger btn-sm">Browse Requests</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
