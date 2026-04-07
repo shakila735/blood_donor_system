@@ -77,4 +77,26 @@ function get_unread_notification_count($pdo, $user_id) {
     $stmt->execute([$user_id]);
     return $stmt->fetchColumn();
 }
+
+/**
+ * Notify the requester that their request has been accepted by a donor.
+ */
+function notify_requester_on_acceptance($pdo, $requester_id, $donor_name, $blood_group) {
+    $msg = "Great news! $donor_name has accepted your request for $blood_group blood. You can now see their contact details in your request history.";
+    
+    // In-app notification
+    $stmt = $pdo->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+    $stmt->execute([$requester_id, $msg]);
+    
+    // Fetch requester email to send "mock" email if needed
+    $stmt = $pdo->prepare("SELECT email, name FROM users WHERE id = ?");
+    $stmt->execute([$requester_id]);
+    $requester = $stmt->fetch();
+    
+    if ($requester && !empty($requester['email'])) {
+        $subject = "Blood Request Accepted!";
+        $email_msg = "Hello {$requester['name']},\n\nYour request for $blood_group blood has been accepted by $donor_name.\nPlease log in to BloodNet and check your request history to get the donor's contact information.\n\nThank you,\nBloodNet Team";
+        mock_send_email($pdo, $requester_id, $requester['email'], $subject, $email_msg);
+    }
+}
 ?>
