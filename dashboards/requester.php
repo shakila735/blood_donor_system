@@ -1,4 +1,5 @@
 <?php
+require_once '../config/database.php';
 require_once '../auth/guard.php';
 require_role('requester');
 include '../includes/header.php';
@@ -47,6 +48,25 @@ include '../includes/header.php';
                                 <h5>My Requests</h5>
                                 <p class="text-muted small">View and manage your requests.</p>
                                 <a href="../blood_request_history.php" class="btn btn-outline-danger btn-sm">View History</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center py-4">
+                                <div class="position-relative d-inline-block">
+                                    <i class="fa-solid fa-bell fa-3x text-danger mb-3"></i>
+                                    <?php
+                                    require_once '../includes/notification_helper.php';
+                                    $unread_count = get_unread_notification_count($pdo, $_SESSION['user_id']);
+                                    if ($unread_count > 0) {
+                                        echo '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">' . $unread_count . '</span>';
+                                    }
+                                    ?>
+                                </div>
+                                <h5>Notifications</h5>
+                                <p class="text-muted small">View updates on your blood requests.</p>
+                                <a href="../notifications.php" class="btn btn-danger btn-sm">View Notifications</a>
                             </div>
                         </div>
                     </div>
