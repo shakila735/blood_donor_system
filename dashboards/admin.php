@@ -21,7 +21,7 @@ require_role('admin');
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.7">
 </head>
 <body>
     
@@ -87,19 +87,17 @@ require_role('admin');
         <main class="dashboard-main" id="dashboardMain">
             
             <!-- WELCOME CARD -->
-            <div class="welcome-card fade-in-up">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <h1>Admin Dashboard</h1>
-                        <p>System overview and management controls for BloodNet platform.</p>
+            <div class="welcome-card premium-card fade-in-up">
+                <div class="row align-items-center g-3 g-md-4">
+                    <div class="col-md-7">
+                        <span class="badge bg-white text-danger px-3 py-2 rounded-pill mb-2 fw-bold">DASHBOARD OVERVIEW</span>
+                        <h1 class="mb-1">Admin Dashboard</h1>
+                        <p class="opacity-90 mb-0">System overview and management controls for BloodNet platform.</p>
                     </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <div class="d-flex justify-content-lg-end gap-3">
-                            <a href="../admin_users.php" class="btn btn-light btn-lg rounded-pill">
-                                <i class="fas fa-users me-2"></i>Manage Users
-                            </a>
-                            <a href="../admin_requests.php" class="btn btn-outline-light btn-lg rounded-pill">
-                                <i class="fas fa-list me-2"></i>View Requests
+                    <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                        <div class="welcome-card-actions">
+                            <a href="../admin_users.php" class="btn btn-light shadow-sm">
+                                <i class="fas fa-users fa-fw me-2"></i><span>Manage Users</span>
                             </a>
                         </div>
                     </div>
@@ -235,17 +233,14 @@ require_role('admin');
                             </div>
                         </div>
                         
-                        <a href="../profile.php" class="btn btn-danger btn-sm rounded-pill w-100">
+                        <a href="../profile.php" class="btn btn-danger btn-sm rounded-pill w-100 mb-2">
                             <i class="fas fa-edit me-2"></i>Edit Profile
                         </a>
-                    </div>
-                </div>
-            </div>
-                        
-                        <a href="#" class="btn btn-danger btn-sm rounded-pill w-100">
+                        <a href="#" class="btn btn-outline-danger btn-sm rounded-pill w-100">
                             <i class="fas fa-cog me-2"></i>Admin Settings
                         </a>
                     </div>
+                </div>
             </div>
             
         </main>

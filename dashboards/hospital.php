@@ -60,7 +60,7 @@ try {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.7">
 </head>
 <body>
     <!-- TOP NAVBAR -->
@@ -161,19 +161,17 @@ try {
         <main class="dashboard-main" id="dashboardMain">
             
             <!-- WELCOME CARD -->
-            <div class="welcome-card fade-in-up">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <h1>Welcome back, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h1>
-                        <p>Manage your blood inventory and emergency requests efficiently.</p>
+            <div class="welcome-card premium-card fade-in-up">
+                <div class="row align-items-center g-3 g-md-4">
+                    <div class="col-md-7">
+                        <span class="badge bg-white text-danger px-3 py-2 rounded-pill mb-2 fw-bold">DASHBOARD OVERVIEW</span>
+                        <h1 class="mb-1">Welcome back, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h1>
+                        <p class="opacity-90 mb-0">Manage your blood inventory and emergency requests efficiently.</p>
                     </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <div class="d-flex justify-content-lg-end gap-3">
-                            <a href="../blood_request_create.php" class="btn btn-light btn-lg rounded-pill">
-                                <i class="fas fa-plus me-2"></i>Post Request
-                            </a>
-                            <a href="../donor_search.php" class="btn btn-outline-light btn-lg rounded-pill">
-                                <i class="fas fa-search me-2"></i>Find Donors
+                    <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                        <div class="welcome-card-actions">
+                            <a href="../blood_request_create.php" class="btn btn-light shadow-sm">
+                                <i class="fas fa-plus fa-fw me-2"></i><span>Post Request</span>
                             </a>
                         </div>
                     </div>

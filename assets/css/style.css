@@ -301,28 +301,120 @@ html {
 .welcome-card {
     background: var(--blood-red-gradient);
     color: var(--white);
-    padding: var(--spacing-2xl);
+    padding: var(--spacing-lg); /* Reduced from xl to lg */
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-md); /* Reduced from lg to md */
 }
 
 .welcome-card h1 {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl); /* Reduced from 3xl */
     font-weight: var(--font-weight-extrabold);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm); /* Reduced from md */
 }
 
 .welcome-card p {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base); /* Reduced from lg */
     opacity: 0.9;
     margin-bottom: 0;
 }
 
+/* Premium Card Modifications */
+.welcome-card.premium-card {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.95), rgba(165, 40, 52, 0.95)), 
+                url('../blood_donation_abstract_bg_1775706184578.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.welcome-card.premium-card h1 {
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+}
+
+.welcome-card.premium-card::after {
+    content: '\f004';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-size: 100px;
+    color: rgba(255, 255, 255, 0.05);
+    z-index: -1;
+    transform: rotate(-15deg);
+}
+
+/* Refined Welcome Card Buttons */
+.welcome-card-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+@media (max-width: 767px) {
+    .welcome-card-actions {
+        justify-content: center;
+    }
+}
+
+.welcome-card .btn {
+    min-width: 180px; /* Increased for better balance */
+    height: 50px;     /* Increased for a more premium feel */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px !important;
+    padding: 0 1.5rem !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.welcome-card .btn i {
+    width: 20px; /* Fixed icon container width for perfect alignment */
+    text-align: center;
+}
+
+.welcome-card .btn-light {
+    background: #ffffff !important;
+    border: none !important;
+    color: var(--primary-color) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.welcome-card .btn-light:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    background: #ffffff !important;
+}
+
+.welcome-card .btn-outline-light {
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600 !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+}
+
+.welcome-card .btn-outline-light:hover {
+    transform: translateY(-3px) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+
+
 /* ===== STATS CARDS ===== */
 .stat-card {
     text-align: center;
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg); /* Reduced from xl */
     border-radius: var(--radius-xl);
     background-color: var(--white);
     box-shadow: var(--shadow);
