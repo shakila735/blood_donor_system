@@ -25,21 +25,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'])) {
                 // 3. Notify the requester
                 notify_requester_on_acceptance($pdo, $request['user_id'], $donor_name, $request['blood_group']);
                 
-                header("Location: blood_requests_feed.php?success=accepted");
+                $redirect = $_POST['redirect'] ?? 'blood_requests_feed.php';
+                $sep = (strpos($redirect, '?') !== false) ? '&' : '?';
+                header("Location: " . $redirect . $sep . "success=accepted");
                 exit();
             } catch (PDOException $e) {
-                header("Location: blood_requests_feed.php?error=db");
+                $redirect = $_POST['redirect'] ?? 'blood_requests_feed.php';
+                $sep = (strpos($redirect, '?') !== false) ? '&' : '?';
+                header("Location: " . $redirect . $sep . "error=db");
                 exit();
             }
         } else {
-            header("Location: blood_requests_feed.php?error=already_taken");
+            $redirect = $_POST['redirect'] ?? 'blood_requests_feed.php';
+            $sep = (strpos($redirect, '?') !== false) ? '&' : '?';
+            header("Location: " . $redirect . $sep . "error=already_taken");
             exit();
         }
     } else {
-        header("Location: blood_requests_feed.php?error=not_found");
+        $redirect = $_POST['redirect'] ?? 'blood_requests_feed.php';
+        $sep = (strpos($redirect, '?') !== false) ? '&' : '?';
+        header("Location: " . $redirect . $sep . "error=not_found");
         exit();
     }
 } else {
-    header("Location: blood_requests_feed.php");
+    header("Location: dashboards/donor.php");
     exit();
 }
