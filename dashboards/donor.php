@@ -109,8 +109,6 @@ $all_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><h6 class="dropdown-header">Donor Account</h6></li>
                             <li><a class="dropdown-item" href="../profile.php"><i class="fas fa-user me-2"></i>My Profile</a></li>
-                            <li><a class="dropdown-item" href="../donor_profile.php"><i class="fas fa-edit me-2"></i>Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="../settings.php"><i class="fas fa-cog me-2"></i>Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="../logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                         </ul>
